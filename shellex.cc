@@ -60,14 +60,11 @@ void Execute(char* cmd[])
 int main()
 {
     char * cmnd; // To store tokenised input - broken up by white space
-    char begin;
-    char * cmd[40];
+    char * cmd[40]; // Stores an array of char pointers
     char input[50]; // To store input
     
-    char temp = 'X';
-    cmd[0] = &temp;
     
-    while(cmd[0] != NULL)
+    while(true)//cmd[0] != NULL)
     {
     	Clean(cmd); // Clean array
         ParseArg(cmnd, cmd, input); // Get input
@@ -80,3 +77,8 @@ int main()
     return 1; // exit success
     
 }
+
+
+
+
+
