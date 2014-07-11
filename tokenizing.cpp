@@ -21,14 +21,30 @@ int main() {
     
     cout <<"Tokenizing: "<< data << endl;
     
+    // Create a new array set to zero by default
     new_array(array_index, 'n');
     
-    for (int i = 0; i <= array_index; i++) {
-        for (int j = 0; j < strlen(cmd[i]); j++) {
-            cout <<cmd[i][j] << j<< endl;
-        }
-    }
     
+    /* This switch block is used to parse the user input.
+     * The input is broken up and stored in arrays. This allows us to
+     * execute commands and their associated command line arguments.
+     *
+     * When a pipe or redirection character is encountered, a new array is
+     * created. E.G. 
+     *              Input: cmd1 args1 args2 args3 | cmd2 args4 args5
+     *              Tokenized Ouptut: 
+     *                               Array1: cmd1 args1 args2 args3
+     *                               Array2: cmd2 args4 args5
+     *
+     * This gives us an easy to use tokenizer for piping and redirection.
+     * The first element in each array tells us what type of operator is used
+     * between the two blocks. 
+     *
+     * 'n' denotes a single block with no redirection or piping
+     * '|' denotes a pipe
+     * '<' denotes a lefthand redirect
+     * '>' denotes a righthand redirect
+     */
     for (int i = 0; i < strlen(data); i++) {
         switch (data[i]) {
                 //case ' ':
@@ -48,32 +64,29 @@ int main() {
                 
                 case '<':
                     cout <<"Redirect <"<< endl;
-                    array_index++;
                     insert_index = 1;
-                    new_array(array_index, '<');
+                    new_array(++array_index, '<');
                 break;
                 
                 case '>':
                     cout <<"Redirect >"<< endl;
-                    array_index++;
                     insert_index = 1;
-                    new_array(array_index, '>');
+                    new_array(++array_index, '>');
                 break;
                 
                 case '|':
                     cout <<"Pipe |"<< endl;
-                    array_index++;
                     insert_index = 1;
-                    new_array(array_index, '>');
+                    new_array(++array_index, '|');
                 break;
                 
-            default: // Add elements to current array
-                cmd[array_index][insert_index++] = data[i];
+                default:
+                    cmd[array_index][insert_index++] = data[i];
                 break;
         }
     }
     
-    // Print the cmd array
+    // Print the arrays
     for (int i = 0; i <= array_index; i++) {
         for (int j = 0; j < strlen(cmd[i]); j++) {
             cout <<cmd[i][j]<< endl;
