@@ -33,7 +33,7 @@ void exit() {
     // Do some quit code here...
 }
 
-// Echo
+// Echo ------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void echo(char ** cmd) {
     int i = 1;
     

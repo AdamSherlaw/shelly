@@ -189,7 +189,7 @@ int main() {
             builtin = true;
         }
         
-        // If command is an OS built in.
+        // If command is an OS command.
         if (!builtin) {
             Execute(cmd); // run commands
         }

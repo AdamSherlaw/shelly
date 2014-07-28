@@ -10,6 +10,6 @@
 #define ____token__
 
 #include <iostream>
-int tokenise(char * data, char ** destination);
-void new_array(int index, char id, char ** cmd);
+int tokenise(char * data, char *** command);
+void new_array(int index, char *** cmd);
 #endif /* defined(____token__) */

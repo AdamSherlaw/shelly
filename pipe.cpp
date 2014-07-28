@@ -18,14 +18,14 @@
 int piping(char com1[], char com2[])
 {
     int pi[2];       /* pipe */
-    int status;     /* status */
+    int status;      /* status */
     
     //create child to run commands
     switch(fork())
     {
         case -1:
             // fork was unsuccessful
-            printf( "unable to fork!\n" );
+            printf( "Debug: Unable to fork!\n" );
             return( -1 );
             
         case 0:
@@ -47,7 +47,7 @@ int piping(char com1[], char com2[])
         return( -1 );
     }
     
-    switch( fork() )
+    switch( fork() ) // Create another process
     {
         case -1:
             printf( "unable to fork!\n" );
