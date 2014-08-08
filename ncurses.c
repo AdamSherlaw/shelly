@@ -22,49 +22,42 @@ int main() {
     endwin();
     
     return 0;
-}
+}*/
 
-*/
 #include <ncurses.h>
-#include <stdlib.h>
-#include <string.h>
 
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string);
-int main(int argc, char *argv[])
-{	initscr();			/* Start curses mode 		*/
-	if(has_colors() == FALSE)
-	{	endwin();
-		printf("Your terminal does not support color\n");
-		exit(1);
-	}
-    assume_default_colors(COLOR_BLUE,COLOR_RED);
-	start_color();			/* Start color 			*/
-	init_pair(1, COLOR_RED, COLOR_RED);
+int main(int ac, char **av) {
+    int ch;
+    char c[30];
+    int i = 0;
     
-	attron(COLOR_PAIR(1));
-	print_in_middle(stdscr, LINES / 2, 0, 0, "Viola !!! In color ...");
-	attroff(COLOR_PAIR(1));
-    getch();
-	endwin();
-    return 0;
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, true);
+    mvprintw(0, 0, "press a key: ");
+   
+    while( (ch = getch()) != 'q') {
+        erase();
+        move(0,0);
+        printw("You pressed : %c with value %d\n", ch, ch);
+        
+        c[i++] = ch;
+        printw("You pressed : %c\n", c[i]);
+        if (ch == '\n') {
+            printw("Newline\n");
+            continue;
+        }
+        printw("Press another key, or 'q' to quit\n");
+        refresh();
+    }
+    
+    for (int j = 0; j < i; j++) {
+        printw("%c\n", c[j]);
+    }
+    refresh();
+    
+    endwin();
 }
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string)
-{	int length, x, y;
-	float temp;
-    
-	if(win == NULL)
-		win = stdscr;
-	getyx(win, y, x);
-	if(startx != 0)
-		x = startx;
-	if(starty != 0)
-		y = starty;
-	if(width == 0)
-		width = 80;
-    
-	length = strlen(string);
-	temp = (width - length)/ 2;
-	x = startx + (int)temp;
-	mvwprintw(win, y, x, "%s", string);
-	refresh();
-}
+
+
