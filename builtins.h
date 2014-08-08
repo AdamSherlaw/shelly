@@ -2,8 +2,11 @@
 #ifndef ____builtins__
 #define ____builtins__
 
-#include <iostream>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-bool is_builtin(char *input);
-
-#endif /* defined(____builtins__) */
+/*int run_builtin(char *input);*/
+void change_directory();
+#endif

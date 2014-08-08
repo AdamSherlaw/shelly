@@ -2,54 +2,27 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:builtins.cpp">
+      location = "group:builtins.c">
    </FileRef>
    <FileRef
       location = "group:builtins.h">
    </FileRef>
    <FileRef
-      location = "group:execution.cpp">
+      location = "group:execution.c">
    </FileRef>
    <FileRef
       location = "group:execution.h">
    </FileRef>
    <FileRef
-      location = "group:file_descriptors.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:file_descriptors.h">
-   </FileRef>
-   <FileRef
-      location = "group:main.cpp">
+      location = "group:main.c">
    </FileRef>
    <FileRef
       location = "group:main.h">
    </FileRef>
    <FileRef
-      location = "group:parse.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:parse.h">
-   </FileRef>
-   <FileRef
-      location = "group:pipe.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:pipe.h">
-   </FileRef>
-   <FileRef
-      location = "group:shellex.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:token.cpp">
+      location = "group:token.c">
    </FileRef>
    <FileRef
       location = "group:token.h">
-   </FileRef>
-   <FileRef
-      location = "group:tokenizing.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:tokenizing.h">
    </FileRef>
 </Workspace>
