@@ -16,6 +16,6 @@
 
 
 void execute(char ** cmd);
-void pre_execute(char *** cmd, char ** operators, int length, int index);
+void pre_execute(char ** cmd, char ** operators, int length, int index);
 
 #endif

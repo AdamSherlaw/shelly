@@ -26,29 +26,38 @@ int main() {
 
 #include <ncurses.h>
 
-int main(int ac, char **av) {
-    int ch;
-    char c[30];
+int main() {
+    int ch;  char c[30];
     int i = 0;
+    int h, w;
+    int row = 0;
     
     initscr();
     cbreak();
-    noecho();
+    //noecho();
+    
     keypad(stdscr, true);
-    mvprintw(0, 0, "press a key: ");
+    
+    getmaxyx(stdscr, h, w);
+    
+    
+    mvprintw(0, 0, "Shelly>>");
    
+    //move(10,10);
+    
     while( (ch = getch()) != 'q') {
-        erase();
-        move(0,0);
-        printw("You pressed : %c with value %d\n", ch, ch);
-        
+        //erase();
+        //move(10,1);
+        //printw("You pressed : %c with value %d\n", ch, ch);
+        //printw("%c",ch);
         c[i++] = ch;
-        printw("You pressed : %c\n", c[i]);
         if (ch == '\n') {
-            printw("Newline\n");
+            //mvprintw(11, 1, "Newline\n");
+            move(++row, 0);
             continue;
         }
-        printw("Press another key, or 'q' to quit\n");
+        //mvprintw(11, 1, "Press another key, or 'q' to quit\n");
+        //move(20,0);
         refresh();
     }
     
