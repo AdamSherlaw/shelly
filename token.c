@@ -4,8 +4,9 @@
 #define SIZE 512
 
 
-void new_array(int index, char ** cmd) {
-    cmd[index] = (char *) malloc (sizeof(char) * SIZE);
+void new_array(int index, char *** cmd) {
+    cmd[index] = (char **) malloc (sizeof(char *) * SIZE);
+    cmd[index][0] = (char *) malloc (sizeof(char) * SIZE);
 }
 
 
@@ -14,13 +15,12 @@ void malloc_operator(int index, char ** operators) {
 }
 
 
-int tokenise(char * data, char ** command, char ** operators) {
+int tokenise(char * data, char *** command, char ** operators) {
     int insert_index = 0;
     int array_index = 0;
     
     /* Create a new array*/
     new_array(array_index, command);
-   
     malloc_operator(array_index, operators);
 
     
@@ -72,7 +72,7 @@ int tokenise(char * data, char ** command, char ** operators) {
                 break;
                 
             default:
-                command[array_index][insert_index++] = data[i];
+                command[array_index][0][insert_index++] = data[i];
                 break;
         }
     }
@@ -83,22 +83,19 @@ int tokenise(char * data, char ** command, char ** operators) {
      */
     char * split;
     int a;
-     printf("Here\n");
+    
     for (int i = 0; i <= array_index; i++) {
         a = 0;
+        split = strtok(command[i][0], " \n");
         
-        printf("Here2\n");
-        
-        split = strtok(command[i], " \n");
-        
-        /*while (split != NULL) {
-            //command[i][a] = (char *) malloc (sizeof(char) * 120);
+        while (split != NULL) {
+            command[i][a] = (char *) malloc (sizeof(char) * 120);
             strcpy(command[i][a++], split);
             split = strtok(NULL, " \n");
         }
-        operators[i][1] = a;*/
+        operators[i][1] = a;
     }
-     printf("Here2\n");
+    
     /* Clean the array to remove current elements */
     for (int i = 0; i < 20; i++) data[i] = (char)NULL;
     

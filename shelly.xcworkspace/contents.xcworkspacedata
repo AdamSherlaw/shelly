@@ -5,9 +5,6 @@
       location = "group:builtins.c">
    </FileRef>
    <FileRef
-      location = "group:../../../../../../../../Desktop/gui_test.c">
-   </FileRef>
-   <FileRef
       location = "group:builtins.h">
    </FileRef>
    <FileRef
