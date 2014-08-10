@@ -9,13 +9,13 @@ void execute(char ** cmd) {
 
 
 /* index is used as start point */
-void pre_execute(char *** cmd, char ** operators, int length, int index) {
+void pre_execute(char ** cmd, char ** operators, int length, int index) {
     int i = index; int pipes[2];
     
     if (i <= length) { /* For each command array */
         switch (operators[i][0]) {
             default:
-                execute(cmd[i]);
+                execute(&cmd[i]);
                 break;
                 
             case '|':
@@ -30,17 +30,17 @@ void pre_execute(char *** cmd, char ** operators, int length, int index) {
                 else { /* Parent process */
                     dup2(pipes[1], 1); /* replace std output with output of pipe */
                     close(pipes[0]); /* Close unused half */
-                    execute(cmd[i]);
+                    execute(&cmd[i]);
                 }
                 break;
                 
             case '<':  /* Read input from file */
-                printf("%s %s\n", "Opening File: ", cmd[i + 1][0]);
+                printf("%s %s\n", "Opening File: ", cmd[i + 1]);
                 int in;
                 
                 /* Ensure that the file can be opened / accessed */
-                if ((in = open(cmd[i + 1][0], O_RDONLY)) == -1) {
-                    printf("%s %s\n","Unable to open file: ", cmd[i + 1][0]);
+                if ((in = open(cmd[i + 1], O_RDONLY)) == -1) {
+                    printf("%s %s\n","Unable to open file: ", cmd[i + 1]);
                     return;
                 }
                 
@@ -62,10 +62,10 @@ void pre_execute(char *** cmd, char ** operators, int length, int index) {
                     { /* Parent process */
                         dup2(pipes[1], 1); /* replace std output with output pipe */
                         close(pipes[0]); /* Close unused half */
-                        execute(cmd[i]);
+                        execute(&cmd[i]);
                     }
                 } else {
-                    if (fork() == 0) execute (cmd[i]);
+                    if (fork() == 0) execute(&cmd[i]);
                     else exit (0);
                 } break;
                 
@@ -74,15 +74,15 @@ void pre_execute(char *** cmd, char ** operators, int length, int index) {
                 /* Open the output file */
                 int out;
                 
-                if ((out = open(cmd[i + 1][0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)) == -1) {
-                    printf("%s %s", "Unable to open file: ", cmd[i + 1][0]);
+                if ((out = open(cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)) == -1) {
+                    printf("%s %s", "Unable to open file: ", cmd[i + 1]);
                     return;
                 }
                 
                 if (fork() == 0) {
                     dup2(out, 1);  /* replace standard output with output file */
                     close(out); /* Close unused fd */
-                    execute(cmd[i]); /* Execute command */
+                    execute(&cmd[i]); /* Execute command */
                 }
                 exit(0);
                 break;

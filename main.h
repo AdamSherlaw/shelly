@@ -11,7 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "builtins.h"
+#include <curses.h>
 
-int builtin_cmds(char *** cmd);
+int builtin_cmds(char ** cmd);
 
 #endif

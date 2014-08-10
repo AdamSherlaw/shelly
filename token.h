@@ -11,10 +11,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 
 void malloc_operator(int index, char ** operators);
-void new_array(int index, char *** cmd);
-int tokenise(char * data, char *** command, char ** operators);
+void new_array(int index, char ** cmd);
+int tokenise(char * data, char ** command, char ** operators);
 
 #endif /* defined(____token__) */

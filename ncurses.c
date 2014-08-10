@@ -22,49 +22,51 @@ int main() {
     endwin();
     
     return 0;
-}
+}*/
 
-*/
 #include <ncurses.h>
-#include <stdlib.h>
-#include <string.h>
 
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string);
-int main(int argc, char *argv[])
-{	initscr();			/* Start curses mode 		*/
-	if(has_colors() == FALSE)
-	{	endwin();
-		printf("Your terminal does not support color\n");
-		exit(1);
-	}
-    assume_default_colors(COLOR_BLUE,COLOR_RED);
-	start_color();			/* Start color 			*/
-	init_pair(1, COLOR_RED, COLOR_RED);
+int main() {
+    int ch;  char c[30];
+    int i = 0;
+    int h, w;
+    int row = 0;
     
-	attron(COLOR_PAIR(1));
-	print_in_middle(stdscr, LINES / 2, 0, 0, "Viola !!! In color ...");
-	attroff(COLOR_PAIR(1));
-    getch();
-	endwin();
-    return 0;
+    initscr();
+    cbreak();
+    //noecho();
+    
+    keypad(stdscr, true);
+    
+    getmaxyx(stdscr, h, w);
+    
+    
+    mvprintw(0, 0, "Shelly>>");
+   
+    //move(10,10);
+    
+    while( (ch = getch()) != 'q') {
+        //erase();
+        //move(10,1);
+        //printw("You pressed : %c with value %d\n", ch, ch);
+        //printw("%c",ch);
+        c[i++] = ch;
+        if (ch == '\n') {
+            //mvprintw(11, 1, "Newline\n");
+            move(++row, 0);
+            continue;
+        }
+        //mvprintw(11, 1, "Press another key, or 'q' to quit\n");
+        //move(20,0);
+        refresh();
+    }
+    
+    for (int j = 0; j < i; j++) {
+        printw("%c\n", c[j]);
+    }
+    refresh();
+    
+    endwin();
 }
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string)
-{	int length, x, y;
-	float temp;
-    
-	if(win == NULL)
-		win = stdscr;
-	getyx(win, y, x);
-	if(startx != 0)
-		x = startx;
-	if(starty != 0)
-		y = starty;
-	if(width == 0)
-		width = 80;
-    
-	length = strlen(string);
-	temp = (width - length)/ 2;
-	x = startx + (int)temp;
-	mvwprintw(win, y, x, "%s", string);
-	refresh();
-}
+
+
